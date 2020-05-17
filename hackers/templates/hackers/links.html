@@ -1,0 +1,17 @@
+{% for link in object_list %}
+	<div dir="rtl">
+		{{link.title}}
+		{{link.url}}
+		{{link.description}}
+		{{link.user}}
+		{{link.created}}
+		<a href="{% url 'hackers:delete' link.pk %}">(حذف)</a>
+	</div>
+{% empty %}
+	<p dir="rtl">لینکی وارد نشده است.</p>
+{% endfor %}
+
+<div dir="rtl">
+	<a href="{% url 'hackers:create' %}">افزودن لینک</a>
+	<a href="{% url 'hackers:logout' %}">خروج</a>
+</div>

@@ -7,7 +7,7 @@ class Link(models.Model):
 	url = models.URLField(verbose_name='آدرس')
 	description = models.TextField(verbose_name='توضیحات')
 	user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-	vote = models.IntegerField(verbose_name='رای', default=0)
+	created = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
 		verbose_name = 'آدرس'

@@ -123,4 +123,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 AUTH_USER_MODEL = 'account.User'
+
+LOGIN_URL = 'hackers:login'
+LOGIN_REDIRECT_URL = 'hackers:links'
+LOGOUT_REDIRECT_URL = 'hackers:login'

@@ -1,7 +1,21 @@
 {% for link in object_list %}
-	{{link.title}}
-	{{link.url}}
-	{{link.description}}
-	{{link.user}}
-	{{link.vote}}
+	<div dir="rtl">
+		{{link.title}}
+		{{link.url}}
+		{{link.description}}
+		{{link.user}}
+		{{link.created}}
+	</div>
+{% empty %}
+	<p dir="rtl">لینکی وارد نشده است.</p>
 {% endfor %}
+
+<div dir="rtl">
+	{% if user.is_authenticated %}
+		<a href="{% url 'hackers:create' %}">افزودن لینک</a>
+		<a href="{% url 'hackers:logout' %}">خروج</a>
+	{% else %}
+		<a href="{% url 'hackers:login' %}">ورود</a>
+		<a href="{% url 'hackers:register' %}">ثبت‌نام</a>
+	{% endif %}
+</div>
