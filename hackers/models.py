@@ -8,6 +8,8 @@ class Link(models.Model):
 	description = models.TextField(verbose_name='توضیحات')
 	user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
 	created = models.DateTimeField(auto_now_add=True)
+	likes = models.ManyToManyField(User, blank=True, related_name='likes', verbose_name='پسندیدن')
+	dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes', verbose_name='نپسندیدن')
 
 	class Meta:
 		verbose_name = 'آدرس'

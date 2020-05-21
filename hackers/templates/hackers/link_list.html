@@ -5,6 +5,9 @@
 		{{link.description}}
 		{{link.user}}
 		{{link.created}}
+		<a class="like-dislike-btn" data-pk='{{link.pk}}' href="{% url 'hackers:api-like' link.pk %}">پسندیدن: <span id="like-count-{{link.pk}}">{{link.likes.count}}</span></a>
+		<a class="like-dislike-btn" data-pk='{{link.pk}}' href="{% url 'hackers:api-dislike' link.pk %}">نپسندیدن: <span id="dislike-count-{{link.pk}}">{{link.dislikes.count}}</span></a>
+		<span id="alert-login-{{link.pk}}" style="color: red; display: none">برای رای دادن باید وارد شوید.</span>
 	</div>
 {% empty %}
 	<p dir="rtl">لینکی وارد نشده است.</p>
@@ -19,3 +22,40 @@
 		<a href="{% url 'hackers:register' %}">ثبت‌نام</a>
 	{% endif %}
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	function get_likes_dislikes(link, id) {
+		$.ajax({
+			url: link,
+			success: function(s) {
+				if (s.status) {
+					$('#like-count-' + id).html(s.likes)
+					$('#dislike-count-' + id).html(s.dislikes)
+				} else {
+					$('#alert-login-' + id).css({'display': 'inline'})
+				}
+			},
+			error: function(e) {
+				console.log("error 2")
+			}
+		})
+	}
+
+
+	$(".like-dislike-btn").click(function(e){
+		e.preventDefault()
+		var id = $(this).attr("data-pk")
+		var link = "/api/" + id
+		var url = $(this).attr("href")
+		$.ajax({
+			url: url,
+			success: function(success) {
+				get_likes_dislikes(link, id)
+			},
+			error: function(error) {
+				console.log("error 1")
+			}
+		})
+	})
+</script>
